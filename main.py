@@ -1,20 +1,17 @@
-#from collections import Counter
-
 def main():
     with open('books/Frankenstein.txt') as f:
         frankenstein = f.read()
-        #print(counting(frankenstein))
-        list_of_dicts = []
+        count_dict = counting(frankenstein)
+        new_list = transform_and_sort(count_dict)
 
         print("--- Begin report of books/Frakenstein.txt ---")
         print(f"{word_count(frankenstein)} words found in the documnet")
 
-        #for letter, count in sorted(counter.items()):
-        #   list_of_dicts.append({"character": letter, "count": count})
-                  
-        #print("---- End of report ----")
-        #print(list_of_dicts)
+        for entry in new_list:
+            print(f"The {entry['character']} character was found {entry['count']} times")
 
+                  
+        print("---- End of report ----")
 
 # counting function takes the text given to count the letters of the text. first it is case sensitive, so we make them all the same with text.lower(). next we create a dictionary.
 # we start the loop for the letters in the loop. the if statement checks if the char is a letter. if it is then it does the function .
@@ -32,6 +29,20 @@ def counting(text):
 def word_count(text):
     words = text.split()
     return(len(words))
+
+
+def sort_on(dictionary):
+    return dictionary["count"]
+
+
+
+def transform_and_sort(count_dict):
+    list_of_dicts = []
+    for key, value in count_dict.items():
+        list_of_dicts.append({"character": key, "count": value})
+    list_of_dicts.sort(reverse=True, key=sort_on)
+    return list_of_dicts
+
 
 
 main()
