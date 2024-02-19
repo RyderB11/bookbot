@@ -1,21 +1,37 @@
-from collections import Counter
+#from collections import Counter
 
 def main():
     with open('books/Frankenstein.txt') as f:
         frankenstein = f.read()
-        print(frankenstein)
+        #print(counting(frankenstein))
+        list_of_dicts = []
 
-        words = frankenstein.split()
-        print(len(words))
+        print("--- Begin report of books/Frakenstein.txt ---")
+        print(f"{word_count(frankenstein)} words found in the documnet")
 
-        lowered_string = frankenstein.lower()
-        # print(Counter(lowered_string)) this was a counter i used but counted everything to include special characters, i'd rather have just letters for now and practice 
-        
-        counter = {'a':0,'b':0,'c':0,'d':0,'e':0,'f':0,'g':0,'h':0,'i':0,'j':0,'k':0,'l':0,'m':0,'n':0,'o':0,'p':0,'q':0,'r':0,'s':0,'t':0,'u':0,'v':0,'w':0,'x':0,'y':0,'z':0}
-        for char in lowered_string:
-            if char.isalpha():
-                counter[char] += 1
-        print(counter)
-    
+        #for letter, count in sorted(counter.items()):
+        #   list_of_dicts.append({"character": letter, "count": count})
+                  
+        #print("---- End of report ----")
+        #print(list_of_dicts)
+
+
+# counting function takes the text given to count the letters of the text. first it is case sensitive, so we make them all the same with text.lower(). next we create a dictionary.
+# we start the loop for the letters in the loop. the if statement checks if the char is a letter. if it is then it does the function .
+# first we define the dict to update it by simply counter[char] = , then counter.get is checking the dict. we do (char,0) +1. the char is checking if the key is in the dict
+# if it is then +1, if it is not, it returns 0, we put the 0 specifically becuase without it, it returns "none" and will not work.
+def counting(text):
+    lowered_string = text.lower()
+    counter = {}
+    for char in lowered_string:
+        if char.isalpha():
+            counter[char] = counter.get(char, 0) + 1
+    return counter
+
+# word_count is a function that takes whatever text parameter and counts the words. we call it in the main() and feed it the Frankenstein as a parameter.
+def word_count(text):
+    words = text.split()
+    return(len(words))
+
 
 main()
